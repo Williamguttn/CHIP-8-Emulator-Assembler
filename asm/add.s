@@ -1,0 +1,10 @@
+LD V0, 0x12
+LD V1, 0x01
+
+ADD V0, V1
+ADD V1, V1
+
+carrytest:
+LD V0, 0xFF
+LD V1, 0x01
+ADD V0, V1

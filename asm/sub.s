@@ -1,0 +1,11 @@
+LD V0, 0x05
+LD V1, 0x03
+
+SUB V0, V1
+SUB V1, V1
+
+
+borrowtest:
+LD V0, 0x00
+LD V1, 0x01
+SUB V0, V1

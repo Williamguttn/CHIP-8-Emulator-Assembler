@@ -1,0 +1,11 @@
+LD I, addr
+
+LD V0, 3
+ADD I, V0
+
+JP end
+
+addr:
+DB 0xDE, 0xAD, 0xBE, 0xEF
+
+end:

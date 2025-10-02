@@ -1,0 +1,8 @@
+# Register arithmetic test
+
+0x6067
+0x6102
+0x8014 # Register 0 now contains 69
+0x8105 # Register 1 -= Register 0. 0x02 - 0x69 for unsigned is -103 mod 256=153=0x99
+
+0x8A00 # Register A = register 0

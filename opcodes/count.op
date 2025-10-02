@@ -1,0 +1,5 @@
+0x6000 # Reg 0 = 0
+# addr 202 below
+0x7001 # Reg 0 += 1
+0x300A # Skip next instruction if reg 0 is 10. End program if so.
+0x1202 # Jump to addr 202
