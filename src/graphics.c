@@ -74,7 +74,7 @@ void emulation_loop() {
     DrawTexturePro(
         screen.texture,
         (Rectangle){ 0, 0, VIRTUAL_WIDTH, -VIRTUAL_HEIGHT },
-        (Rectangle){ 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT },
+        (Rectangle){ 0, 0, GLOB_OPTS.window_width, GLOB_OPTS.window_height },
         (Vector2){ 0, 0 },
         0.0f,
         WHITE
@@ -85,7 +85,7 @@ void emulation_loop() {
 
 void init_window() {
     printf("\n\n");
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "CHIP-8 Emulator");
+    InitWindow(GLOB_OPTS.window_width, GLOB_OPTS.window_height, "CHIP-8 Emulator");
     screen = LoadRenderTexture(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
     SetTextureFilter(screen.texture, TEXTURE_FILTER_POINT);

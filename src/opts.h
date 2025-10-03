@@ -25,6 +25,8 @@ typedef struct {
     int graphics_enabled;
     int print_registers;
     int debug_enabled;
+
+    int window_width, window_height;
 } Options;
 
 extern Options GLOB_OPTS;

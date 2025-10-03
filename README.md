@@ -15,7 +15,7 @@ You can use ```chip8 -h``` to see all options. Here is a quick summary:
 * Assemble and run an assembly source: ```chip8 --asm <file> --run```
 * Assemble program & create ROM: ```chip8 --asm <file> -o <file>```
 * To see register values & memory dumps: ```chip8 --asm/--rom <file> --run --print-regs --debug```
-* To speed up execution (for slow programs): ```chip8 --asm/--rom <file> --run --opcodes N```. See help for more.
+* To speed up execution (for slow programs): ```chip8 --asm/--rom <file> --run --opcodes N```. See help for more about this.
 
 Additionally, there are options to work directly with CHIP-8 opcodes. See examples in ```/opcodes```. To convert to ROM/execute:
 ```chip8 --hex <file> [-o <file>/--run]```. Additionally, you can convert assembly programs to hex opcodes: ```chip8 --asm <file> --hexout <file>```
