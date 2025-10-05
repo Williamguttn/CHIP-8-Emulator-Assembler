@@ -1,8 +1,10 @@
 #include "preprocess.h"
 #include "emulate.h"
+#include "token.h"
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
+#include <ctype.h>
 
 char *load_file_asm(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -111,6 +113,60 @@ int read_rom(const char *filename, uint8_t *data, size_t max_size) {
     fclose(file);
     
     return (int)bytes_read;
+}
+
+char *capitalize_instructions(const char *src) {
+    size_t n = strlen(src);
+    char *out = (char *)malloc(n + 1);
+    if (!out) return NULL;
+
+    size_t i = 0;
+    while (i < n) {
+        if (isalpha((unsigned char) src[i])) {
+            size_t j = i;
+            while (j < n && isalpha((unsigned char) src[j])) j++;
+            size_t len = j - i;
+
+            int match = 0;
+            for (size_t idx = 0; INSTRUCTIONS[idx] != NULL; ++idx) {
+                const char *ins = INSTRUCTIONS[idx];
+                size_t ins_len = strlen(ins);
+                
+                if (ins_len != len) continue;
+
+                size_t k;
+                for (k = 0; k < ins_len; ++k) {
+                    char csrc = src[i + k];
+                    char cins = ins[k];
+                    if (toupper((unsigned char) csrc) != toupper((unsigned char) cins)) break;
+                }
+
+                if (k == len) {
+                    match = 1;
+                    break;
+                }
+            }
+
+            // convert to uppercase
+            if (match) {
+                for (size_t k = 0; k < len; ++k) {
+                    out[i + k] = (char)toupper((unsigned char) src[i + k]);
+                }
+            } else {
+                for (size_t k = 0; k < len; ++k) {
+                    out[i + k] = src[i + k];
+                }
+            }
+            i = j;
+        } else {
+            // copy as-is
+            out[i] = src[i];
+            ++i;
+        }
+    }
+
+    out[n] = '\0';
+    return out;
 }
 
 void relocate_rom(uint8_t *rom) {

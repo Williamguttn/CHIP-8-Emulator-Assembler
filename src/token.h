@@ -3,7 +3,7 @@
 
 #include "lexer.h"
 
-extern char *INSTRUCTIONS[50];
+extern char *INSTRUCTIONS[];
 
 typedef enum {
     TOKEN_COMMA,

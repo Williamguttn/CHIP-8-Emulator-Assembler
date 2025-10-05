@@ -152,8 +152,6 @@ Options parse_args(int argc, char **argv) {
         }
     }
 
-    printf("WINDOW SIZE: %dx%d\n", opts.window_width, opts.window_height);
-
     GLOB_OPTS = opts;
 
     return opts;

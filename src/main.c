@@ -27,6 +27,12 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
+        char *cap_source = capitalize_instructions(source);
+        if (cap_source) {
+            free(source);
+            source = cap_source;
+        }
+
         if (opts.run || opts.output_rom || opts.output_hex) {
             Lexer *lexer = init_lexer(source);
             if (!lexer) {
