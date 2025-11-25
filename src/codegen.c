@@ -757,6 +757,42 @@ void evaluate_RND(Node *node) {
     add_opcode(opcode);
 }
 
+void evaluate_SHR(Node *node) {
+    if (node->n_args != 1) {
+        fprintf(stderr, "Expected 1 argument for SHR, got %d\n", node->n_args);
+        return;
+    }
+    Node *arg1 = node->args[0];
+
+    int vx = is_register(arg1->value); // Returns register index or -1
+
+    if (vx == -1) {
+        fprintf(stderr, "Argument of SHR must be a register, got %s\n", arg1->value);
+        return;
+    }
+
+    uint16_t opcode = 0x8006 | rf(vx, 8);
+    add_opcode(opcode);
+}
+
+void evaluate_SHL(Node *node) {
+    if (node->n_args != 1) {
+        fprintf(stderr, "Expected 1 argument for SHL, got %d\n", node->n_args);
+        return;
+    }
+    Node *arg1 = node->args[0];
+
+    int vx = is_register(arg1->value); // Returns register index or -1
+
+    if (vx == -1) {
+        fprintf(stderr, "Argument of SHL must be a register, got %s\n", arg1->value);
+        return;
+    }
+
+    uint16_t opcode = 0x800E | rf(vx, 8);
+    add_opcode(opcode);
+}
+
 void evaluate_label(Node *node) {
     char *name = node->value;
     add_label(name, addr_ptr);
@@ -798,6 +834,10 @@ void evaluate_node(Node *node) {
             evaluate_XOR(node);
         } else if (strcmp(node->value, "RND") == 0) {
             evaluate_RND(node);
+        } else if (strcmp(node->value, "SHR") == 0) {
+            evaluate_SHR(node);
+        } else if (strcmp(node->value, "SHL") == 0) {
+            evaluate_SHL(node);
         }
         else {
             fprintf(stderr, "Unknown instruction: %s\n", node->value);

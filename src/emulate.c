@@ -317,6 +317,19 @@ void execute(uint16_t opcode) {
         V[vx] = rand() & nn;
     }
 
+    // SHR Vx
+    else if (OP == 0x8 && nibbles[3] == 0x6) {
+        uint8_t vx = nibbles[1];
+        V[0xF] = V[vx] & 0x1;
+        V[vx] >>= 1;
+    }
+    // SHL Vx
+    else if (OP == 0x8 && nibbles[3] == 0xE) {
+        uint8_t vx = nibbles[1];
+        V[0xF] = V[vx] >> 7;
+        V[vx] <<= 1;
+    }
+
     else {
         if (GLOB_OPTS.debug_enabled)
             printf("Unknown opcode: 0x%04X\n.", opcode);

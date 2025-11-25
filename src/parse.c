@@ -182,6 +182,44 @@ Node *parse_skp(Parser *parser) {
     return node;
 }
 
+Node *parse_shl(Parser *parser) {
+    Node *node = create_node(NODE_INSTRUCTION, "SHL");
+    eat(parser, TOKEN_SHL);
+
+    // expect 1 arg: Vx
+    if (parser->curr_token->type == TOKEN_IDENTIFIER) {
+        Node *arg = create_node(NODE_IDENTIFIER, parser->curr_token->value);
+        node->args = (Node **)realloc(node->args, sizeof(Node *) * (node->n_args + 1));
+        node->args[node->n_args++] = arg;
+        eat(parser, TOKEN_IDENTIFIER);
+    } else {
+        fprintf(stderr, "SHL instruction expects an identifier as argument, got token type %d\n", parser->curr_token->type);
+        free(node);
+        return NULL;
+    }
+
+    return node;
+}
+
+Node *parse_shr(Parser *parser) {
+    Node *node = create_node(NODE_INSTRUCTION, "SHR");
+    eat(parser, TOKEN_SHR);
+
+    // expect 1 arg: Vx
+    if (parser->curr_token->type == TOKEN_IDENTIFIER) {
+        Node *arg = create_node(NODE_IDENTIFIER, parser->curr_token->value);
+        node->args = (Node **)realloc(node->args, sizeof(Node *) * (node->n_args + 1));
+        node->args[node->n_args++] = arg;
+        eat(parser, TOKEN_IDENTIFIER);
+    } else {
+        fprintf(stderr, "SHR instruction expects an identifier as argument, got token type %d\n", parser->curr_token->type);
+        free(node);
+        return NULL;
+    }
+
+    return node;
+}
+
 Node *parse_instruction(Parser *parser) {
     Node *node = create_node(NODE_INSTRUCTION, NULL);
 
@@ -209,8 +247,11 @@ Node *parse_instruction(Parser *parser) {
     } else if (parser->curr_token->type == TOKEN_RND) {
         node->value = "RND";
         eat(parser, TOKEN_RND);
-    }
-    else if (parser->curr_token->type == TOKEN_CALL) {
+    } else if (parser->curr_token->type == TOKEN_SHL) {
+        return parse_shl(parser);
+    } else if (parser->curr_token->type == TOKEN_SHR) {
+        return parse_shr(parser);
+    } else if (parser->curr_token->type == TOKEN_CALL) {
         return parse_call(parser);
     } else if (parser->curr_token->type == TOKEN_RET) {
         return parse_ret(parser);

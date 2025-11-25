@@ -18,14 +18,19 @@ typedef enum {
     TOKEN_LD,
     TOKEN_ADD,
     TOKEN_SUB,
-    TOKEN_SUBN,
     TOKEN_JP,
     TOKEN_CALL,
     TOKEN_RET,
     TOKEN_DB,
     TOKEN_DRW,
     TOKEN_CLS,
+    
+    // Not originally documented
     TOKEN_XOR,
+    TOKEN_SUBN,
+    TOKEN_SHR,
+    TOKEN_SHL,
+    
     TOKEN_RND,
 
     TOKEN_SKNP, // Skip if key not pressed

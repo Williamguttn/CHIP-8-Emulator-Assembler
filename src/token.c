@@ -5,8 +5,11 @@
 #include <ctype.h>
 
 char *INSTRUCTIONS[] = {
-    "LD", "ADD", "JP", "SUB", "SUBN", "SE", "SNE", "CALL", "RET", "DB", "DRW", "CLS",
-    "SKNP", "SKP", "XOR", "RND", NULL
+    "LD", "ADD", "JP", "SUB", "SE", "SNE", "CALL", "RET", "DB", "DRW", "CLS",
+    "SKNP", "SKP", "XOR", "RND",
+    /* Undocumented */
+    "SUBN", "SHR", "SHL",
+    NULL
 };
 
 char *is_instruction(const char *value) {
@@ -76,6 +79,10 @@ Token *get_next_token(Lexer *lexer) {
                 token->type = TOKEN_SE;
             } else if (strcmp(instr, "SNE") == 0) {
                 token->type = TOKEN_SNE;
+            } else if (strcmp(instr, "SHL") == 0) {
+                token->type = TOKEN_SHL;
+            } else if (strcmp(instr, "SHR") == 0) {
+                token->type = TOKEN_SHR;
             } else if (strcmp(instr, "CALL") == 0) {
                 token->type = TOKEN_CALL;
             } else if (strcmp(instr, "RET") == 0) {

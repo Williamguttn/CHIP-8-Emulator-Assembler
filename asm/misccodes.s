@@ -32,6 +32,5 @@ LD V9, 0x0F    ; V9 = 15
 LD VA, 0x0F    ; VA = 15
 SUBN V9, VA    ; V9 = 15 - 15 = 0, VF = 1 (no underflow, VY >= VX)
 
-; Loop forever for debugging
 loop:
 JP loop
